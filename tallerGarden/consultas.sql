@@ -156,52 +156,101 @@ from pago;
 
 select G.nombre as Gama, P.cantidad_en_stock as CantidadDisponible, P.precio_venta as PrecioVenta
 from producto as P  
-inner join gama_producto as G on P.cod_gama G.cod_gama;
+inner join gama_producto as G on P.cod_gama = G.cod_gama
 where G.nombre = "Hogar" and P.cantidad_en_stock >= 2
 order by P.precio_venta;
 
 
+-- 16. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y
+-- cuyo representante de ventas tenga el código de empleado 11 o 30.
+
+select Cl.nombre_cliente as Cliente
+from cliente as Cl
+inner join direccion_cliente as DC on Cl.cod_cliente = DC.cod_cliente
+inner join ciudad as C on C.cod_ciudad = DC.cod_ciudad
+inner join empleado as E on E.cod_empleado = Cl.cod_rep_ventas
+where C.nombre = "Madrid" and E.cod_empleado = 11 or E.cod_empleado = 30;
+
+
+-- CONSULTAS MULTITABLA
+
+-- 1. Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
+
+select Cl.nombre_cliente as nombreCliente, E.nombre as nombreRepresentante, E.apellido1 as apellidoRepresentante
+from cliente as Cl
+inner join empleado as E on E.cod_empleado = Cl.cod_rep_ventas;
+
+
+-- 2. Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
+
+select Cl.nombre_cliente as nombreCliente, E.nombre as nombreEmpleado, P.cod_pago
+from cliente as Cl
+inner join pago as P on P.cod_cliente = Cl.cod_cliente
+inner join empleado as E on E.cod_empleado = Cl.cod_rep_ventas;
 
 
 
+-- 3. Muestra el nombre de los clientes que no hayan realizado pagos junto con el nombre de sus representantes de ventas.
+
+-- Este aún falta
+select Cl.nombre_cliente as nombreCliente, E.nombre as nombreEmpleado, P.cod_pago
+from cliente as Cl
+full join pago as P on P.cod_cliente = Cl.cod_cliente
+inner join empleado as E on E.cod_empleado = Cl.cod_rep_ventas;
+where not exists P.cod_cliente ;
+
+
+select 
+
+
+-- 4. Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+
+select Cl.nombre_cliente as nombreCliente, E.nombre as nombreEmpleado, P.cod_pago, C.nombre as ciudadOficina
+from cliente as Cl
+inner join pago as P on P.cod_cliente = Cl.cod_cliente
+inner join empleado as E on E.cod_empleado = Cl.cod_rep_ventas
+inner join oficina as O on O.cod_oficina = E.cod_oficina
+inner join direccion_oficina as DO on DO.cod_oficina = O.cod_oficina
+inner join ciudad as C on C.cod_ciudad = DO.cod_ciudad;
+
+
+-- 5. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+
+select Cl.nombre_cliente as nombreCliente, E.nombre as nombreEmpleado, P.cod_pago, C.nombre as ciudadOficina
+from cliente as Cl
+inner join pago as P on P.cod_cliente = Cl.cod_cliente
+inner join empleado as E on E.cod_empleado = Cl.cod_rep_ventas
+inner join oficina as O on O.cod_oficina = E.cod_oficina
+inner join direccion_oficina as DO on DO.cod_oficina = O.cod_oficina
+inner join ciudad as C on C.cod_ciudad = DO.cod_ciudad
+where not exists P.cod_pago;
 
 
 
+-- 6. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
+
+select cod_direccion, cod_ciudad
+from direccion_oficina as DO on DO.cod_ciudad = C.cod_ciudad
+inner join ciudad as C 
 
 
 
+-- 7. Devuelve el nombre de los clientes y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+
+select Cl.nombre_cliente as nombreCliente, E.nombre as nombreRepresentante, E.apellido1 as apellidoRepresentante, C.nombre as CiudadOficinaRepresentante
+from cliente as Cl
+inner join empleado as E on E.cod_empleado = Cl.cod_rep_ventas
+inner join oficina as O on O.cod_oficina = E.cod_oficina
+inner join direccion_oficina as DO on DO.cod_oficina = O.cod_oficina
+inner join ciudad as C on C.cod_ciudad = DO.cod_ciudad;
 
 
+-- 8. Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+select E.nombre as nombreEmpleado, E.nombr
+from empelado as E
+inner join empleado as J on E.cod_jefe = J.cod_empleado
 
 
 

@@ -179,8 +179,8 @@ INSERT INTO `cliente` (cod_cliente, nombre_cliente, nombre_contacto, apellido_co
 (7, 'Stark Industries', 'Emma', 'Martinez', 7),
 (8, 'Wayne Enterprises', 'James', 'Garcia', 8),
 (9, 'Wonka Industries', 'Olivia', 'Lee', 9),
-(10, 'Duff Beer', 'Chris', 'Kim', 10);
-
+(10, 'Duff Beer', 'Chris', 'Kim', 10),
+(11, 'Sin pago', null, 'cero', null);
 
 -- Inserciones direccion_cliente
 INSERT INTO `direccion_cliente` (cod_direccion, cod_postal, cod_cliente, cod_ciudad) VALUES
@@ -270,7 +270,7 @@ INSERT INTO `detalle_pedido` (cod_pedido, cod_producto, cantidad, precio_unidad,
 (4, 'P007', 4, 100.00, 1),
 (5, 'P008', 10, 15.00, 1),
 (6, 'P009', 2, 120.00, 1),
-(7, 'P010', 20, 25.00, 1);
+(7, 'P010', 20, 25.00, 1),
 (8, 'P001', 1, 1200.00, 1),
 (8, 'P002', 1, 600.00, 2),
 (9, 'P003', 5, 25.00, 1),

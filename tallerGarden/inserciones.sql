@@ -227,7 +227,8 @@ INSERT INTO `pago` (cod_pago, forma_pago, fecha_pago, total, cod_cliente) VALUES
 ('PAG013', 'PayPal', '2008-03-20', 550.00, 3),
 ('PAG014', 'Efectivo', '2008-04-25', 800.00, 4),
 ('PAG021', 'Tarjeta de Crédito', '2007-01-05', 1550.00, 1),
-('PAG022', 'Transferencia Bancaria', '2007-02-10', 2050.00, 2);
+('PAG022', 'Transferencia Bancaria', '2007-02-10', 2050.00, 2),
+('PAG023', 'PayPal', '2008-07-10', 450.00, 7);
 
 
 -- Inserciones pedido
@@ -254,7 +255,8 @@ INSERT INTO `pedido` (cod_pedido, fecha_pedido, fecha_esperada, fecha_entrega, e
 (20, '2024-12-25', '2025-01-10', NULL, 'Pendiente', 'Esperando confirmación.', 10);
 (21, '2024-01-05', '2024-01-20', '2024-01-22', 'Entregado', 'Entrega retrasada debido a problemas logísticos.', 1),
 (22, '2024-02-10', '2024-02-25', '2024-02-28', 'Entregado', 'Retraso por mal tiempo.', 2),
-(23, '2024-03-15', '2024-03-30', '2024-04-02', 'Entregado', 'Demora en la aduana.', 3);
+(23, '2024-03-15', '2024-03-30', '2024-04-02', 'Entregado', 'Demora en la aduana.', 3),
+(24, '2009-03-15', '2009-03-30', '2009-04-02', 'Rechazado', 'Demora en la aduana.', 3);
 
 
 -- Inserciones detalle_pedido

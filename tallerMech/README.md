@@ -503,40 +503,103 @@ WHERE i.cantidad < (0.1 * i.stock_inicial);
 
 ### 1. Crear un procedimiento almacenado para insertar una nueva reparación
 
-#### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+#### - Solución del procedimiento
+```sql
+DELIMITER //
 
-#### - Resultado de la consulta
-<!-- Incluir el resultado aquí -->
+CREATE PROCEDURE InsertarReparacion (
+    IN p_reparacionID INT,
+    IN p_fecha DATE,
+    IN p_costoTotal DOUBLE,
+    IN p_descripcion TEXT,
+    IN p_vehiculoID INT,
+    IN p_servicioID INT,
+    IN p_empleadoID INT
+)
+BEGIN
+    INSERT INTO reparacion (reparacionID, fecha, costoTotal, descripcion, vehiculoID, servicioID, empleadoID)
+    VALUES (p_reparacionID, p_fecha, p_costoTotal, p_descripcion, p_vehiculoID, p_servicioID, p_empleadoID);
+END //
+
+DELIMITER ;
+```
+
+#### - Resultado del procedimiento
+```sql
+CALL InsertarReparacion(31,'2024-01-01', 500.00, 'Reparación de frenos', 1, 4, 2);
+```
+![alt text](image-22.png)
 
 #### - Explicación de la solución
-<!-- Incluir la explicación aquí -->
+El procedimiento almacenado InsertarReparacion permite insertar una nueva reparación en la tabla reparacion. Se definen seis parámetros de entrada (p_fecha, p_costoTotal, p_descripcion, p_vehiculoID, p_servicioID, p_empleadoID) que representan los datos necesarios para la inserción. Dentro del procedimiento, se ejecuta una sentencia INSERT INTO para añadir un nuevo registro a la tabla reparacion con los valores proporcionados como parámetros. El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ;) al final.
 
 ---
 
 ### 2. Crear un procedimiento almacenado para actualizar el inventario de una pieza
 
-#### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+#### - Solución del procedimiento almacenado
+```sql
+DELIMITER //
 
-#### - Resultado de la consulta
-<!-- Incluir el resultado aquí -->
+CREATE PROCEDURE ActualizarInventario (
+    IN p_inventarioID INT,
+    IN p_piezaID INT,
+    IN p_cantidad INT,
+    IN p_ubicacion VARCHAR(30)
+)
+BEGIN
+    UPDATE inventario
+    SET cantidad = p_cantidad,
+        ubicacion = p_ubicacion
+    WHERE inventarioID = p_inventarioID
+    AND piezaID = p_piezaID;
+END //
+DELIMITER ;
+```
+
+#### - Resultado del procedimiento
+```sql
+CALL ActualizarInventario(1, 1, 120, 'B2');
+```
+![alt text](image-23.png)
 
 #### - Explicación de la solución
-<!-- Incluir la explicación aquí -->
+El procedimiento almacenado ActualizarInventario permite actualizar la cantidad y la ubicación de una pieza específica en el inventario. 
+
+Se definen cuatro parámetros de entrada (p_inventarioID, p_piezaID, p_cantidad, p_ubicacion) que representan el ID del inventario, el ID de la pieza, la nueva cantidad en inventario y la nueva ubicación. Dentro del procedimiento, se ejecuta una sentencia UPDATE para cambiar la cantidad y la ubicación de la pieza en la tabla inventario con los valores proporcionados como parámetros.
+
+ El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ;) al final.
 
 ---
 
 ### 3. Crear un procedimiento almacenado para eliminar una cita
 
 #### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+```sql
+DELIMITER //
+
+CREATE PROCEDURE EliminarCita (
+    IN p_citaID INT
+)
+BEGIN
+    DELETE FROM cita
+    WHERE citaID = p_citaID;
+END //
+
+DELIMITER ;
+```
 
 #### - Resultado de la consulta
-<!-- Incluir el resultado aquí -->
-
+```sql
+CALL EliminarCita(1);
+```
+![alt text](image-24.png)
 #### - Explicación de la solución
-<!-- Incluir la explicación aquí -->
+El procedimiento almacenado EliminarCita permite eliminar una cita de la tabla cita. 
+
+Se define un parámetro de entrada (p_citaID) que representa el ID de la cita que se desea eliminar. Dentro del procedimiento, se ejecuta una sentencia DELETE FROM para eliminar el registro correspondiente en la tabla cita con el citaID proporcionado. 
+
+El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ;) al final.
 
 ---
 

@@ -531,7 +531,11 @@ CALL InsertarReparacion(31,'2024-01-01', 500.00, 'Reparación de frenos', 1, 4, 
 ![alt text](img/image-22.png)
 
 #### - Explicación de la solución
-El procedimiento almacenado InsertarReparacion permite insertar una nueva reparación en la tabla reparacion. Se definen seis parámetros de entrada (p_fecha, p_costoTotal, p_descripcion, p_vehiculoID, p_servicioID, p_empleadoID) que representan los datos necesarios para la inserción. Dentro del procedimiento, se ejecuta una sentencia INSERT INTO para añadir un nuevo registro a la tabla reparacion con los valores proporcionados como parámetros. El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ;) al final.
+El procedimiento almacenado InsertarReparacion permite insertar una nueva reparación en la tabla reparacion. 
+
+Se definen seis parámetros de entrada (p_fecha, p_costoTotal, p_descripcion, p_vehiculoID, p_servicioID, p_empleadoID) que representan los datos necesarios para la inserción. Dentro del procedimiento, se ejecuta una sentencia INSERT INTO para añadir un nuevo registro a la tabla reparacion con los valores proporcionados como parámetros. 
+
+El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ; ) al final.
 
 ---
 
@@ -568,7 +572,7 @@ El procedimiento almacenado ActualizarInventario permite actualizar la cantidad 
 
 Se definen cuatro parámetros de entrada (p_inventarioID, p_piezaID, p_cantidad, p_ubicacion) que representan el ID del inventario, el ID de la pieza, la nueva cantidad en inventario y la nueva ubicación. Dentro del procedimiento, se ejecuta una sentencia UPDATE para cambiar la cantidad y la ubicación de la pieza en la tabla inventario con los valores proporcionados como parámetros.
 
- El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ;) al final.
+ El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ; ) al final.
 
 ---
 
@@ -599,7 +603,7 @@ El procedimiento almacenado EliminarCita permite eliminar una cita de la tabla c
 
 Se define un parámetro de entrada (p_citaID) que representa el ID de la cita que se desea eliminar. Dentro del procedimiento, se ejecuta una sentencia DELETE FROM para eliminar el registro correspondiente en la tabla cita con el citaID proporcionado. 
 
-El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ;) al final.
+El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ; ) al final.
 
 ---
 
@@ -619,24 +623,69 @@ El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del pr
 ### 5. Crear un procedimiento almacenado para obtener el historial de reparaciones de un vehículo
 
 #### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+```sql
+DELIMITER //
+
+CREATE PROCEDURE HistorialVehiculo(
+    IN p_vehiculoID INT
+)
+BEGIN
+    SELECT r.reparacionID, s.nombre AS nombreServicio
+    FROM reparacion r
+    JOIN servicio s ON s.servicioID = r.servicioID
+    JOIN vehiculo v ON v.vehiculoID = r.vehiculoID
+    WHERE r.vehiculoID = p_vehiculoID;
+
+END //
+
+DELIMITER ;
+
+
+
+```
 
 #### - Resultado de la consulta
-<!-- Incluir el resultado aquí -->
+```sql
+CALL HistorialVehiculo(1);
+```
+![alt text](img/image-25.png)
 
 #### - Explicación de la solución
-<!-- Incluir la explicación aquí -->
+El procedimiento almacenado HistorialVehiculo permite ver el historial de reparaciones realizadas a un vehículo mostrando la reparacionID y el nombre del servicio realizado.
+
+Se define un parámetro de entrada (p_vehiculoID) que representa el ID del vehiculo del cuál se obtendrá el historial de reparaciones. Dentro del procedimiento se ejecuta una consulta que nos regresa la información del historial que queremos obtener, en este caso reparacionID(r.reparacionID) y nombre del servicio(s.nombre).
+
+El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del procedimiento almacenado y luego restablecer el delimitador (DELIMITER ; ) al final.
 
 ---
 
 ### 6. Crear un procedimiento almacenado para calcular el costo total de reparaciones de un cliente en un período
 
 #### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+```sql
+DELIMITER //
+CREATE PROCEDURE CostoReparacionesTiempo(
+    IN p_clienteID INT,
+    IN p_fechaini DATETIME,
+    IN p_fechafin DATETIME
+)
+BEGIN
+    SELECT SUM(r.costoTotal) AS costoTotal, cl.nombre
+    FROM reparacion r
+    JOIN vehiculo v ON r.vehiculoID = v.vehiculoID
+    JOIN cliente cl ON v.clienteID = cl.clienteID
+    WHERE cl.clienteID = p_clienteID AND r.fecha BETWEEN p_fechaini AND p_fechafin
+    GROUP BY cl.nombre;
+END //
+
+DELIMITER ;
+```
 
 #### - Resultado de la consulta
-<!-- Incluir el resultado aquí -->
-
+```sql
+CALL CostoReparacionesTiempo(1,"2020-01-01",CURDATE());
+```
+![alt text](img/image-26.png)
 #### - Explicación de la solución
 <!-- Incluir la explicación aquí -->
 
@@ -658,7 +707,27 @@ El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del pr
 ### 8. Crear un procedimiento almacenado para insertar una nueva orden de compra
 
 #### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+```sql
+DELIMITER //
+CREATE PROCEDURE NuevaOrdenCompra(
+    IN p_ordenID INT,
+    IN p_fecha DATETIME,
+    IN p_total DOUBLE(15,2),
+    IN p_empleadoID INT(10),
+    IN p_proveedorID INT(10)
+)
+BEGIN
+    INSERT INTO ordencompra VALUES (
+        p_ordenID,
+        p_fecha,
+        p_total,
+        p_empleadoID,
+        p_proveedorID);
+END //
+DELIMITER ;
+
+CALL NuevaOrdenCompra(11, CURDATE(), 700.00, 1, 1)
+```
 
 #### - Resultado de la consulta
 <!-- Incluir el resultado aquí -->
@@ -671,10 +740,41 @@ El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del pr
 ### 9. Crear un procedimiento almacenado para actualizar los datos de un cliente
 
 #### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+```sql
+DELIMITER //
+CREATE PROCEDURE ActualizarCliente(
+    IN p_clienteID INT,
+    IN p_nombre VARCHAR(20),
+    IN p_apellido VARCHAR(20),
+    IN p_email VARCHAR(40)
+)
+BEGIN
+    UPDATE cliente
+    SET 
+        nombre = p_nombre,
+        apellido = p_apellido,
+        email = p_email
+    WHERE clienteID = p_clienteID;
+END //
+DELIMITER ;
+```
 
 #### - Resultado de la consulta
-<!-- Incluir el resultado aquí -->
+```sql
+-- ver los datos de clientes
+select clienteID, nombre, apellido, email from cliente;
+```
+![alt text](img/image-27.png)
+
+```sql
+CALL ActualizarCliente(10, "Martha", "Diez", "marta.diez@example.com");
+```
+
+```sql
+-- ver los datos de clientes
+select clienteID, nombre, apellido, email from cliente;
+```
+![alt text](img/image-28.png)
 
 #### - Explicación de la solución
 <!-- Incluir la explicación aquí -->
@@ -684,11 +784,29 @@ El uso del delimitador (DELIMITER //) es necesario para definir el cuerpo del pr
 ### 10. Crear un procedimiento almacenado para obtener los servicios más solicitados en un período
 
 #### - Solución de la consulta
-<!-- Incluir la solución aquí -->
+```sql
+DELIMITER //
+CREATE PROCEDURE ServiciosMasSolicitados(
+    IN p_fechaini DATETIME,
+    IN p_fechafin DATETIME
+)
+BEGIN
+    SELECT s.nombre AS nombreServicio, COUNT(r.servicioID) AS CANTIDAD
+    FROM reparacion r
+    JOIN servicio s ON s.servicioID = r.servicioID
+    WHERE r.fecha BETWEEN p_fechaini AND p_fechafin
+    GROUP BY r.servicioID;
+END //
+DELIMITER ;
+
+
+```
 
 #### - Resultado de la consulta
-<!-- Incluir el resultado aquí -->
-
+```sql
+CALL ServiciosMasSolicitados("2020-01-01",CURDATE());
+```
+![alt text](img/image-29.png)
 #### - Explicación de la solución
 <!-- Incluir la explicación aquí -->
 

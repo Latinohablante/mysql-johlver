@@ -76,6 +76,11 @@ INSERT INTO tel_cliente (telID, numero, clienteID) VALUES
 (9, '600888999', 9),
 (10, '600000111', 10);
 
+-- Datos para la tabla marca
+INSERT INTO marca (marcaID, nombre) VALUES 
+(1, 'Tesla'),
+(2, 'Ford');
+
 -- Datos para la tabla vehiculo
 INSERT INTO vehiculo (vehiculoID, placa, modelo, clienteID, marcaID) VALUES 
 (1, 'ABC123', 'Model S', 1, 1),
@@ -89,11 +94,6 @@ INSERT INTO vehiculo (vehiculoID, placa, modelo, clienteID, marcaID) VALUES
 (9, 'YZA567', 'Focus', 9, 2),
 (10, 'BCD890', 'Fusion', 10, 2);
 
--- Datos para la tabla marca
-INSERT INTO marca (marcaID, nombre) VALUES 
-(1, 'Tesla'),
-(2, 'Ford');
-
 -- Datos para la tabla servicio
 INSERT INTO servicio (servicioID, nombre, descripcion, costo) VALUES 
 (1, 'Cambio de aceite', 'Cambio de aceite y filtro', 50.00),
@@ -106,6 +106,14 @@ INSERT INTO servicio (servicioID, nombre, descripcion, costo) VALUES
 (8, 'Revisión eléctrica', 'Diagnóstico y reparación del sistema eléctrico', 120.00),
 (9, 'Cambio de amortiguadores', 'Sustitución de los amortiguadores', 300.00),
 (10, 'Cambio de bujías', 'Sustitución de bujías', 70.00);
+
+-- Datos para la tabla cargo
+INSERT INTO cargo (cargoID, nombre) VALUES 
+(1, 'Mecánico'),
+(2, 'Recepcionista'),
+(3, 'Administrador'),
+(4, 'Contador'),
+(5, 'Gerente');
 
 -- Datos para la tabla empleado
 INSERT INTO empleado (empleadoID, nombre, apellido1, apellido2, cargoID) VALUES 
@@ -133,13 +141,7 @@ INSERT INTO tel_empleado (telID, numero, empleadoID) VALUES
 (9, '700888999', 9),
 (10, '700000111', 10);
 
--- Datos para la tabla cargo
-INSERT INTO cargo (cargoID, nombre) VALUES 
-(1, 'Mecánico'),
-(2, 'Recepcionista'),
-(3, 'Administrador'),
-(4, 'Contador'),
-(5, 'Gerente');
+
 
 -- Datos para la tabla cita
 INSERT INTO cita (citaID, fechaHora, clienteID, vehiculoID, servicioID) VALUES 
@@ -152,7 +154,27 @@ INSERT INTO cita (citaID, fechaHora, clienteID, vehiculoID, servicioID) VALUES
 (7, '2023-06-01 14:00:00', 7, 7, 7),
 (8, '2023-06-01 15:00:00', 8, 8, 8),
 (9, '2023-06-01 16:00:00', 9, 9, 9),
-(10, '2023-06-01 17:00:00', 10, 10, 10);
+(10, '2023-06-01 17:00:00', 10, 10, 10)
+(11, '2023-06-02 08:00:00', 1, 1, 1),
+(12, '2023-06-02 09:00:00', 2, 2, 2),
+(13, '2023-06-02 10:00:00', 3, 3, 3),
+(14, '2023-06-02 11:00:00', 4, 4, 4),
+(15, '2023-06-02 12:00:00', 5, 5, 5),
+(16, '2023-06-02 13:00:00', 6, 6, 6),
+(17, '2023-06-02 14:00:00', 7, 7, 7),
+(18, '2023-06-02 15:00:00', 8, 8, 8),
+(19, '2023-06-02 16:00:00', 9, 9, 9),
+(20, '2023-06-02 17:00:00', 10, 10, 10),
+(21, '2023-06-03 08:00:00', 1, 1, 1),
+(22, '2023-06-03 09:00:00', 2, 2, 2),
+(23, '2023-06-03 10:00:00', 3, 3, 3),
+(24, '2023-06-03 11:00:00', 4, 4, 4),
+(25, '2023-06-03 12:00:00', 5, 5, 5),
+(26, '2023-06-03 13:00:00', 6, 6, 6),
+(27, '2023-06-03 14:00:00', 7, 7, 7),
+(28, '2023-06-03 15:00:00', 8, 8, 8),
+(29, '2023-06-03 16:00:00', 9, 9, 9),
+(30, '2023-06-03 17:00:00', 10, 10, 10);
 
 -- Datos para la tabla reparacion
 INSERT INTO reparacion (reparacionID, fecha, costoTotal, descripcion, vehiculoID, servicioID, empleadoID) VALUES 
@@ -165,7 +187,27 @@ INSERT INTO reparacion (reparacionID, fecha, costoTotal, descripcion, vehiculoID
 (7, '2023-06-01', 450.00, 'Sustitución de la batería', 7, 7, 7),
 (8, '2023-06-01', 500.00, 'Diagnóstico y reparación del sistema eléctrico', 8, 8, 8),
 (9, '2023-06-01', 550.00, 'Sustitución de los amortiguadores', 9, 9, 9),
-(10, '2023-06-01', 600.00, 'Sustitución de bujías', 10, 10, 10);
+(10, '2023-06-01', 600.00, 'Sustitución de bujías', 10, 10, 10),
+(11, '2023-01-12', 250.00, 'Cambio de aceite y filtro', 3, 1, 1),
+(12, '2023-06-02', 200.00, 'Alineación y balanceo', 2, 2, 2),
+(13, '2023-06-02', 250.00, 'Revisión completa del vehículo', 3, 3, 3),
+(14, '2023-06-02', 300.00, 'Sustitución de pastillas de freno', 4, 4, 4),
+(15, '2023-06-02', 350.00, 'Sustitución de las cuatro llantas', 5, 5, 5),
+(16, '2023-06-02', 400.00, 'Reparación completa del motor', 6, 6, 6),
+(17, '2023-06-02', 450.00, 'Sustitución de la batería', 7, 7, 7),
+(18, '2023-06-02', 500.00, 'Diagnóstico y reparación del sistema eléctrico', 8, 8, 8),
+(19, '2023-06-02', 550.00, 'Sustitución de los amortiguadores', 9, 9, 9),
+(20, '2023-06-02', 600.00, 'Sustitución de bujías', 10, 10, 10),
+(21, '2023-06-03', 150.00, 'Cambio de aceite y filtro', 1, 1, 1),
+(22, '2023-06-03', 200.00, 'Alineación y balanceo', 2, 2, 2),
+(23, '2023-06-03', 250.00, 'Revisión completa del vehículo', 3, 3, 3),
+(24, '2023-06-03', 300.00, 'Sustitución de pastillas de freno', 4, 4, 4),
+(25, '2023-06-03', 350.00, 'Sustitución de las cuatro llantas', 5, 5, 5),
+(26, '2023-06-03', 400.00, 'Reparación completa del motor', 6, 6, 6),
+(27, '2023-06-03', 450.00, 'Sustitución de la batería', 7, 7, 7),
+(28, '2023-06-03', 500.00, 'Diagnóstico y reparación del sistema eléctrico', 8, 8, 8),
+(29, '2023-06-03', 550.00, 'Sustitución de los amortiguadores', 9, 9, 9),
+(30, '2023-06-03', 600.00, 'Sustitución de bujías', 10, 10, 10);
 
 -- Datos para la tabla factura
 INSERT INTO factura (facturaID, fecha, total, clienteID) VALUES 
@@ -178,7 +220,27 @@ INSERT INTO factura (facturaID, fecha, total, clienteID) VALUES
 (7, '2023-06-01 18:00:00', 450.00, 7),
 (8, '2023-06-01 18:00:00', 500.00, 8),
 (9, '2023-06-01 18:00:00', 550.00, 9),
-(10, '2023-06-01 18:00:00', 600.00, 10);
+(10, '2023-06-01 18:00:00', 600.00, 10),
+(11, '2023-06-02 18:00:00', 150.00, 1),
+(12, '2023-06-02 18:00:00', 200.00, 2),
+(13, '2023-06-02 18:00:00', 250.00, 3),
+(14, '2023-06-02 18:00:00', 300.00, 4),
+(15, '2023-06-02 18:00:00', 350.00, 5),
+(16, '2023-06-02 18:00:00', 400.00, 6),
+(17, '2023-06-02 18:00:00', 450.00, 7),
+(18, '2023-06-02 18:00:00', 500.00, 8),
+(19, '2023-06-02 18:00:00', 550.00, 9),
+(20, '2023-06-02 18:00:00', 600.00, 10),
+(21, '2023-06-03 18:00:00', 150.00, 1),
+(22, '2023-06-03 18:00:00', 200.00, 2),
+(23, '2023-06-03 18:00:00', 250.00, 3),
+(24, '2023-06-03 18:00:00', 300.00, 4),
+(25, '2023-06-03 18:00:00', 350.00, 5),
+(26, '2023-06-03 18:00:00', 400.00, 6),
+(27, '2023-06-03 18:00:00', 450.00, 7),
+(28, '2023-06-03 18:00:00', 500.00, 8),
+(29, '2023-06-03 18:00:00', 550.00, 9),
+(30, '2023-06-03 18:00:00', 600.00, 10);
 
 -- Datos para la tabla factura_reparacion
 INSERT INTO factura_reparacion (facturaID, reparacionID, cantidad) VALUES 
@@ -191,20 +253,40 @@ INSERT INTO factura_reparacion (facturaID, reparacionID, cantidad) VALUES
 (7, 7, 1),
 (8, 8, 1),
 (9, 9, 1),
-(10, 10, 1);
+(10, 10, 1),
+(11, 11, 1, 150.00),
+(12, 12, 1, 200.00),
+(13, 13, 1, 250.00),
+(14, 14, 1, 300.00),
+(15, 15, 1, 350.00),
+(16, 16, 1, 400.00),
+(17, 17, 1, 450.00),
+(18, 18, 1, 500.00),
+(19, 19, 1, 550.00),
+(20, 20, 1, 600.00),
+(21, 21, 1, 150.00),
+(22, 22, 1, 200.00),
+(23, 23, 1, 250.00),
+(24, 24, 1, 300.00),
+(25, 25, 1, 350.00),
+(26, 26, 1, 400.00),
+(27, 27, 1, 450.00),
+(28, 28, 1, 500.00),
+(29, 29, 1, 550.00),
+(30, 30, 1, 600.00);
 
 -- Datos para la tabla proveedor
-INSERT INTO proveedor (proveedorID, nombre, contacto, telefono, email) VALUES 
-(1, 'Proveedor 1', 'Contacto 1', '800111222', 'contacto1@example.com'),
-(2, 'Proveedor 2', 'Contacto 2', '800333444', 'contacto2@example.com'),
-(3, 'Proveedor 3', 'Contacto 3', '800555666', 'contacto3@example.com'),
-(4, 'Proveedor 4', 'Contacto 4', '800777888', 'contacto4@example.com'),
-(5, 'Proveedor 5', 'Contacto 5', '800999000', 'contacto5@example.com'),
-(6, 'Proveedor 6', 'Contacto 6', '800222333', 'contacto6@example.com'),
-(7, 'Proveedor 7', 'Contacto 7', '800444555', 'contacto7@example.com'),
-(8, 'Proveedor 8', 'Contacto 8', '800666777', 'contacto8@example.com'),
-(9, 'Proveedor 9', 'Contacto 9', '800888999', 'contacto9@example.com'),
-(10, 'Proveedor 10', 'Contacto 10', '800000111', 'contacto10@example.com');
+INSERT INTO proveedor (proveedorID, nombre, contacto, email) VALUES 
+(1, 'Proveedor 1', 'Contacto 1', 'contacto1@example.com'),
+(2, 'Proveedor 2', 'Contacto 2', 'contacto2@example.com'),
+(3, 'Proveedor 3', 'Contacto 3', 'contacto3@example.com'),
+(4, 'Proveedor 4', 'Contacto 4', 'contacto4@example.com'),
+(5, 'Proveedor 5', 'Contacto 5', 'contacto5@example.com'),
+(6, 'Proveedor 6', 'Contacto 6', 'contacto6@example.com'),
+(7, 'Proveedor 7', 'Contacto 7', 'contacto7@example.com'),
+(8, 'Proveedor 8', 'Contacto 8', 'contacto8@example.com'),
+(9, 'Proveedor 9', 'Contacto 9', 'contacto9@example.com'),
+(10, 'Proveedor 10', 'Contacto 10', 'contacto10@example.com');
 
 -- Datos para la tabla tel_proveedor
 INSERT INTO tel_proveedor (telID, numero, proveedorID) VALUES 
@@ -233,7 +315,7 @@ INSERT INTO pieza (piezaID, nombre, descripcion, precio, proveedorID) VALUES
 (10, 'Alternador', 'Alternador de coche', 400.00, 8);
 
 -- Datos para la tabla reparacion_piezas
-INSERT INTO reparacion_piezas (reparacionID, piezaID, cantidad) VALUES 
+INSERT INTO reparacion_pieza (reparacionID, piezaID, cantidad) VALUES 
 (1, 1, 1),
 (2, 2, 1),
 (3, 3, 1),
@@ -243,7 +325,27 @@ INSERT INTO reparacion_piezas (reparacionID, piezaID, cantidad) VALUES
 (7, 7, 1),
 (8, 8, 1),
 (9, 9, 1),
-(10, 10, 1);
+(10, 10, 1),
+(11, 1, 1),
+(12, 2, 1),
+(13, 3, 1),
+(14, 4, 1),
+(15, 5, 1),
+(16, 6, 1),
+(17, 7, 1),
+(18, 8, 1),
+(19, 9, 1),
+(20, 10, 1),
+(21, 1, 1),
+(22, 2, 1),
+(23, 3, 1),
+(24, 4, 1),
+(25, 5, 1),
+(26, 6, 1),
+(27, 7, 1),
+(28, 8, 1),
+(29, 9, 1),
+(30, 10, 1);
 
 -- Datos para la tabla inventario
 INSERT INTO inventario (inventarioID, piezaID, cantidad, ubicacion) VALUES 
@@ -258,8 +360,8 @@ INSERT INTO inventario (inventarioID, piezaID, cantidad, ubicacion) VALUES
 (9, 9, 900, 'I1'),
 (10, 10, 1000, 'J1');
 
--- Datos para la tabla orden_compra
-INSERT INTO orden_compra (ordenID, fecha, proveedorID, empleadoID, total) VALUES 
+-- Datos para la tabla ordencompra
+INSERT INTO ordencompra (ordenID, fecha, proveedorID, empleadoID, total) VALUES 
 (1, '2023-06-01', 1, 1, 500.00),
 (2, '2023-06-01', 2, 2, 1000.00),
 (3, '2023-06-01', 3, 3, 1500.00),
@@ -272,7 +374,7 @@ INSERT INTO orden_compra (ordenID, fecha, proveedorID, empleadoID, total) VALUES
 (10, '2023-06-01', 10, 10, 5000.00);
 
 -- Datos para la tabla orden_detalles
-INSERT INTO orden_detalles (ordenID, piezaID, cantidad, precio) VALUES 
+INSERT INTO orden_detalle (ordenID, piezaID, cantidad, precio) VALUES 
 (1, 1, 10, 50.00),
 (2, 2, 20, 20.00),
 (3, 3, 30, 30.00),

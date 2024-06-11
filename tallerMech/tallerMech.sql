@@ -36,6 +36,11 @@ CREATE TABLE `tel_cliente` (
   `clienteID` int(10)
 );
 
+CREATE TABLE `marca` (
+  `marcaID` int(3) PRIMARY KEY,
+  `nombre` varchar(20)
+);
+
 CREATE TABLE `vehiculo` (
   `vehiculoID` int(10) PRIMARY KEY,
   `placa` varchar(7),
@@ -44,16 +49,16 @@ CREATE TABLE `vehiculo` (
   `marcaID` int(3)
 );
 
-CREATE TABLE `marca` (
-  `marcaID` int(3) PRIMARY KEY,
-  `nombre` varchar(20)
-);
-
 CREATE TABLE `servicio` (
   `servicioID` int(3) PRIMARY KEY,
   `nombre` varchar(30),
   `descripcion` text,
   `costo` double(15,2)
+);
+
+CREATE TABLE `cargo` (
+  `cargoID` int(3) PRIMARY KEY,
+  `nombre` varchar(30)
 );
 
 CREATE TABLE `empleado` (
@@ -68,11 +73,6 @@ CREATE TABLE `tel_empleado` (
   `telID` int(2) PRIMARY KEY,
   `numero` varchar(12),
   `empleadoID` int(10)
-);
-
-CREATE TABLE `cargo` (
-  `cargoID` int(3) PRIMARY KEY,
-  `nombre` varchar(30)
 );
 
 CREATE TABLE `cita` (
@@ -110,9 +110,8 @@ CREATE TABLE `factura_reparacion` (
 
 CREATE TABLE `proveedor` (
   `proveedorID` int(10) PRIMARY KEY,
-  `nombre` varchar(30),
-  `apellido1` varchar(20),
-  `apellido2` varchar(20),
+  `nombre` varchar(40),
+  `contacto` varchar(30),
   `email` varchar(30)
 );
 
